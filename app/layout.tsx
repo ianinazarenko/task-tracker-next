@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+
 import './globals.css';
-import { roboto } from '@/app/ui/fonts';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/app/ui/miu-theme';
+import CssBaseline from '@mui/material/CssBaseline';
+import { roboto } from '@/app/ui/fonts';
+import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+
+import ReduxProvider from '@/app/redux-provider';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -19,12 +22,14 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={roboto.variable}>
-                <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        {children}
-                    </ThemeProvider>
-                </AppRouterCacheProvider>
+                <ReduxProvider>
+                    <AppRouterCacheProvider>
+                        <ThemeProvider theme={theme}>
+                            <CssBaseline />
+                            {children}
+                        </ThemeProvider>
+                    </AppRouterCacheProvider>
+                </ReduxProvider>
             </body>
         </html>
     );
